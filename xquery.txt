@@ -1,0 +1,126 @@
+zad 5
+doc("db/bib/bib.xml")//last
+
+zad 6
+ for $k in doc("db/bib/bib.xml")//book
+ for $n in $k//author
+ for $t in $k//title
+ return
+ <książka>
+   {$t}
+   {$n//last}
+   {$n//first}
+ </książka>
+
+ zad 7
+  for $k in doc("db/bib/bib.xml")//book
+ for $n in $k//author
+ for $t in $k//title
+ return
+ <książka>
+   <tytuł>{$t//text()}</tytuł>
+   <autor>{concat($n/last/text(), $n/first/text())}</autor>
+ </książka>
+
+ zad 8
+  for $k in doc("db/bib/bib.xml")//book
+ for $n in $k//author
+ for $t in $k//title
+ return
+ <książka>
+   <tytuł>{$t//text()}</tytuł>
+   <autor>{concat($n/last/text(), " ", $n/first/text())}</autor>
+ </książka>
+
+ zad 9
+  for $i in doc("db/bib/bib.xml")
+ let $wynik := ( for $k in doc("db/bib/bib.xml")//book
+ for $n in $k//author
+ for $t in $k//title
+ return
+ <książka>
+   <tytuł>{$t//text()}</tytuł>
+   <autor>{concat($n/last/text(), " ", $n/first/text())}</autor>
+ </książka>)
+ return
+ <wynik>{$wynik}</wynik>
+
+ zad 10
+  for $k in doc("db/bib/bib.xml")//book
+ let $imiona := (for $n in $k//author
+ where contains($k/title, 'Data on the Web')
+return
+<imie>{$n//first//text()}</imie>)
+where contains($k/title, 'Data on the Web')
+ return
+ <imiona>
+  {$imiona}
+ </imiona>
+
+zad 11.1
+ for $k in doc("db/bib/bib.xml")//book//title[text() = 'Data on the Web']/parent::*
+ return
+ <DataOnTheWeb>
+   {$k}
+ </DataOnTheWeb>
+
+zad 11.2
+  for $k in doc("db/bib/bib.xml")//book
+ where contains($k/title, 'Data on the Web')
+ return
+ <DataOnTheWeb>
+   {$k}
+ </DataOnTheWeb>
+
+ zad 12
+ for $k in doc("db/bib/bib.xml")//book
+ let $data := (for $n in $k//author
+ where contains($k/title, 'Data')
+return
+<nazwisko>{$n//last//text()}</nazwisko>)
+where contains($k/title, 'Data')
+ return
+ <Data>
+  {$data}
+ </Data>
+
+ zad 13
+ for $k in doc("db/bib/bib.xml")//book
+ let $data := (for $n in $k//author
+ where contains($k/title, 'Data')
+return
+<nazwisko>{$n//last//text()}</nazwisko>)
+where contains($k/title, 'Data')
+ return
+ <Data>
+  {$k/title}
+  {$data}
+ </Data>
+
+zad 14
+for $k in doc("db/bib/bib.xml")//book
+where count($k//author) <= 2
+return
+<title>{$k//title//text()}</title>
+
+zad 15
+for $k in doc("db/bib/bib.xml")//book
+return
+<ksiazka>
+{$k//title}
+<autorow>{count($k//author)}</autorow>
+</ksiazka>
+
+zad 16
+for $k in doc("db/bib/bib.xml")
+return
+<przedzial>
+{min($k//@year)} - {max($k//@year)}
+</przedzial>
+
+zad 17
+for $k in doc("db/bib/bib.xml")
+return
+<różnica>
+{max($k//price//text()) - min($k//price//text())}
+</różnica>
