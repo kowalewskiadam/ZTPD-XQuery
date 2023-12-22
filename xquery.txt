@@ -124,3 +124,17 @@ return
 <różnica>
 {max($k//price//text()) - min($k//price//text())}
 </różnica>
+
+zad 18
+for $k in doc("db/bib/bib.xml")
+let $najtańsze := (for $n in doc("db/bib/bib.xml")//book
+where $n//price//text()=min($k//book//price//text())
+return
+<najtańsza>
+{$n//title}
+{$n//author}
+</najtańsza>)
+return
+<najtańsze>
+ {$najtańsze}
+</najtańsze>
