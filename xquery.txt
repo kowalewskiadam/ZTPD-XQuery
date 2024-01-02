@@ -138,3 +138,39 @@ return
 <najtańsze>
  {$najtańsze}
 </najtańsze>
+
+zad 19 - wrócić jeszcze
+for $a in doc("db/bib/bib.xml")//book//author
+return
+<autor>
+{$a//last}
+{for $k in doc("db/bib/bib.xml")//book
+where $a//last = $k//author//last
+return
+<title>{$k//title//text()}</title>}
+</autor>
+
+zd 20
+<wynik>
+{for $a in collection("db/shakespeare")
+return
+<title>{$a/PLAY/TITLE//text()}</title>}
+</wynik>
+
+zad 21
+for $a in collection("db/shakespeare")
+where contains($a, 'or not to be')
+return
+<TITLE>{$a/PLAY/TITLE//text()}</TITLE>
+
+zad 22
+
+<wynik>
+{for $a in collection("db/shakespeare")
+return
+<sztuka tytul="{$a/PLAY/TITLE//text()}">
+<postaci>{count($a//PERSONA)}</postaci>
+<aktow>{count($a//ACT)}</aktow>
+<scen>{count($a//SCENE)}</scen>
+</sztuka>}
+</wynik>
