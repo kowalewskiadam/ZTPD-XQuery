@@ -139,7 +139,7 @@ return
  {$najtańsze}
 </najtańsze>
 
-zad 19 - wrócić jeszcze
+zad 19
 for $a in doc("db/bib/bib.xml")//book//author
 return
 <autor>
